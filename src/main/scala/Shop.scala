@@ -1,11 +1,10 @@
 object Shop extends App{
-  def checkout(shoppingList:List[String]):Double={
+  def checkout2(shoppingList:List[String]):Double={
     var price = 0.0
-    shoppingList.foreach(element => {
-      if(element=="Apple") price+=0.6
-      else if(element=="Orange") price+=0.25
-    })
+    val apples = shoppingList.groupBy(identity).mapValues(_.size)("Apple")
+    val oranges = shoppingList.groupBy(identity).mapValues(_.size)("Orange")
+    price+= (apples/2* 0.6) + (apples%2 * 0.6) + (oranges/3 *0.25*2) + (oranges%3*0.25)
     price
   }
-  println(checkout(List("Apple","Apple","Orange","Apple")))
+  println(checkout2(List("Apple","Apple","Orange","Apple", "Orange", "Orange", "Orange")))
 }
